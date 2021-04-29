@@ -4,7 +4,7 @@
 
 Le formateur ne sait plus où donner de la tête, il explique mal les briefs projet et tout le monde demande de l'aide. Il n'arrive plus à savoir qui a besoin d'aide et quand. Aidez le à répondre à ce problème en réalisant une API qui permet de distribuer des tickets aux apprenants de sa promo.
 
-[cf briel Simplonline]()
+[Brief Simplonline](https://simplonline.co/briefs/272941c4-3648-4e4f-be12-056068d32636)
 
 ## Documentation
 
