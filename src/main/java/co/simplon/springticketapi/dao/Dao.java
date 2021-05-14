@@ -32,4 +32,13 @@ public interface Dao<T> {
      * @param id l'identifiant de l'objet à supprimer.
      */
     void delete(Long id);
+
+
+    /**
+     * Fonction de mise à jour du nom d'un objet en base de données.
+     *
+     * @param id l'identifiant de l'objet à modifier.
+     *           et nom c'est le nouveau nom
+     */
+    void update(Long id);
 }
