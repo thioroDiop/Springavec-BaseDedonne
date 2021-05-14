@@ -18,6 +18,7 @@ public class TicketDao implements Dao<Ticket> {
         this.ticketRowMapper = ticketRowMapper;
     }
 
+
     @Override
     //pourquoi  en paremetre on a la classe Long et non le type "long"?
     public Ticket get(Long id) {
@@ -57,11 +58,7 @@ public class TicketDao implements Dao<Ticket> {
         // A vous de jouer
     }
 
-
-
-
-
-
-
-
+    public JdbcTemplate getJdbcTemplate() {
+        return jdbcTemplate;
+    }
 }

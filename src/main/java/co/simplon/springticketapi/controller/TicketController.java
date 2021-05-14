@@ -31,43 +31,8 @@ public class TicketController {
         return ticketDao.getAll();
     }
 
-    /*
-    //Apprenant fait le plus de tickets
-    private JdbcTemplate jdbcTemplate;
-@GetMapping("/{id}/")
-    public String getBestLearner() throws SQLException {
-        // Je récupère la connection à la base
-        Connection dbConnection = jdbcTemplate.getDataSource().getConnection();
 
-        // Je prépare ma requête
-        String  result = "";
 
-        String selectReq = "select nom_apprenant, count(t.id) nb\n"+
-                "from learner join ticket t on learner.id_apprenant = t.idx_apprenant\n"+
-                " group by nom_apprenant order by nb desc limit 1;";
-
-        try (PreparedStatement statement = dbConnection.prepareStatement(selectReq)) {
-            // J'exécute ma requête
-            ResultSet set = statement.executeQuery();
-
-            // Tant que j'ai des citations, je les ajoute à la liste
-            System.out.println("L'apprenant avec le plus de ticket est : ");
-            while (set.next()) {
-                System.out.print(set.getString("nom_apprenant"));
-                System.out.print(" - nombre de ticket:");
-                System.out.println(set.getInt("nb"));
-                result="L'apprenant :"+set.getString("nom_apprenant")+ "avec un nombre de ticket de :"+ set.getInt("nb");
-            }
-
-            set.close();
-        } catch (SQLException exception) {
-            exception.printStackTrace();
-        }
-
-        // Je retourne la liste des citations
-        return result;
-    }
-*/
 
 
     //méthode pour avoir un ticket en particulier
@@ -99,8 +64,81 @@ public class TicketController {
 
 
 
+    // apprenant fait le plus de tickets ?
+
+    @GetMapping("/most")
+
+    public String getBestLearner() throws SQLException {
+        // Je récupère la connection à la base
+        Connection dbConnection= ticketDao.getJdbcTemplate().getDataSource().getConnection();
+
+
+        // Je prépare ma requête
+        String  result = "";
+
+        String selectReq = "select nom_apprenant, count(t.id) nb\n"+
+                "from learner join ticket t on learner.id_apprenant = t.idx_apprenant\n"+
+                " group by nom_apprenant order by nb desc limit 1;";
+
+        try (PreparedStatement statement = dbConnection.prepareStatement(selectReq)) {
+            // J'exécute ma requête
+            ResultSet set = statement.executeQuery();
+
+
+            System.out.println("L'apprenant avec le plus de ticket est : ");
+            while (set.next()) {
+                System.out.print(set.getString("nom_apprenant"));
+                System.out.print(" - nombre de ticket:");
+                System.out.println(set.getInt("nb"));
+                result="L'apprenant avec le plus de ticket est :"+set.getString("nom_apprenant")+ " avec un nombre de tickets de :"+ set.getInt("nb");
+            }
+
+            set.close();
+        } catch (SQLException exception) {
+            exception.printStackTrace();
+        }
+
+        // Je retourne le resultat
+        return result;
+    }
+
+
+// Quelle promo fait le plus de tickets ? ?
+
+    @GetMapping("/promo")
+
+    public String promo() throws SQLException {
+        // Je récupère la connection à la base
+        Connection dbConnection= ticketDao.getJdbcTemplate().getDataSource().getConnection();
+
+
+        // Je prépare ma requête
+        String  result = "";
+
+        String selectReq = "select promotion,count(t.id) nb1\n" +
+                "from learner join ticket t on learner.id_apprenant = t.idx_apprenant\n" +
+                "group by promotion\n" +
+                "order by nb1 desc\n" +
+                "limit 1;";
+
+        try (PreparedStatement statement = dbConnection.prepareStatement(selectReq)) {
+            // J'exécute ma requête
+            ResultSet set = statement.executeQuery();
 
 
 
+            while (set.next()) {
+
+                result="La promo avec le plus de ticket est :"+set.getString("promotion")+ " avec un nombre de tickets de :"+ set.getInt("nb1");
+            }
+
+            set.close();
+        } catch (SQLException exception) {
+            exception.printStackTrace();
+        }
+
+        // Je retourne le resultat
+        return result;
+    }
 
 }
